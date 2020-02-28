@@ -1,5 +1,8 @@
 <?php
 
+
+use games\model\Game;
+
 require '../vendor/autoload.php';
 \games\AppConf::addDbConf('../config/conf.ini');
 
@@ -15,6 +18,9 @@ foreach ($liste as $game) {
 
 echo "Jeux dont le titre contient Mario : " . count($liste) . "\n";
 
+
 /**
  * Q2 : Liste des compagnies intallées au Japon
  */
+
+
