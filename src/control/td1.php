@@ -55,18 +55,13 @@ class td1
      *  lister 442 jeux à partir du 21173ème,
      */
     public function game442() {
-        $liste = Game::where('id', '>=', '21173')->get();
+        $listeJeu = Game::take(442)->skip(21173)->get();
 
-
-        $i=0;
-
-        foreach ($liste as $key=>$game) {
-            if ($key<21176) {
-                echo $game->name . ' : ' . $game->alias . "<br>";
-            }
+        foreach ($listeJeu as $game) {
+            echo $game->id . '  ' . $game->name . ' : ' . $game->alias . "<br>";
         }
 
-    }
+    }9
 
 
 

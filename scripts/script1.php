@@ -14,7 +14,7 @@ $control = new td1();
 //$control->companyJapon();
 //$control->platformBase();
 //$control->game442();
-$control->jeuxPagination();
+$control->q4();
 
 
 /**
