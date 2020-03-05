@@ -61,7 +61,7 @@ class td1
             echo $game->id . '  ' . $game->name . ' : ' . $game->alias . "<br>";
         }
 
-    }9
+    }
 
 
 
