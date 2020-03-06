@@ -10,5 +10,8 @@ class Game extends Model
     protected $primaryKey = "id";
     public $timestamps = false;
 
-
+    public function Personnages() {
+        return $this->belongsToMany('games\model\Character',
+            'games\model\Game2character', 'id', 'id');
+    }
 }
