@@ -5,6 +5,7 @@ namespace games\control;
 
 
 use games\model\Game;
+use games\model\Game2character;
 
 class td2
 {
@@ -13,7 +14,7 @@ class td2
 
     public function jeu12342(){
         $jeu = Game::where('id', '=', '12342')->first();
-        $persos = Game::where('id', '=', '12342')->Personnages()->get();
+        $persos = $jeu->Personnages()->get();
 
         echo $jeu->name . ' : ' . $jeu->deck;
         foreach ($persos as $perso) {
