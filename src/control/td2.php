@@ -85,10 +85,10 @@ class td2
         $jeux = Game::where('name', 'like', '%Mario%')->get();
 
         foreach ($jeux as $jeu) {
-            echo $jeu->name . '<br>';
+            echo $jeu->name . ' : ' . $jeu->id . '<br>';
             $ratings = $jeu->Rating()->get();
             foreach ($ratings as $rating){
-                echo $rating->name . ' : ' . $rating->rating_board->name . "<br>";
+                echo $rating->name . ' : '  . "<br>";
             }
         }
     }

@@ -22,7 +22,7 @@ class Game extends Model
 	
 	public function Rating() {
 		return $this->belongsToMany('games\model\game_rating',
-			'game2rating', 'rating_id', 'game_id');
+			'game2rating', 'game_id', 'rating_id');
 	}
 
 
