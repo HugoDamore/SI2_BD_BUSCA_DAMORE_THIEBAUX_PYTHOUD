@@ -11,4 +11,6 @@ require '../vendor/autoload.php';
 
 $control = new td2();
 //$control->jeu12342();
-$control->jeuCompSony();
+//$control->personnagesJeuMario();
+//$control->jeuCompSony();
+$control->jeuMario3Persos();
