@@ -35,6 +35,17 @@ class td2
             echo '<br>';
         }
     }
+	
+	public function ratingInit() {
+		$games = Game::where('name', 'like', '%mario%')->get();
+		foreach($games as $game){
+			echo $game->name;
+			$ratings = $game->Rating()->get();
+			foreach($ratings as $rating){
+				echo $rating->name;
+			}
+		}
+	}
 
     
 }
