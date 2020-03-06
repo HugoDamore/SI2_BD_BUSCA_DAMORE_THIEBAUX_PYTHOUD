@@ -78,4 +78,19 @@ class td2
         }
     }
 
+    /**
+     * le rating initial (indiquer le rating board) des jeux dont le nom contient Mario
+     */
+    public function ratingMario() {
+        $jeux = Game::where('name', 'like', '%Mario%')->get();
+
+        foreach ($jeux as $jeu) {
+            echo $jeu->name . '<br>';
+            $ratings = $jeu->Rating()->get();
+            foreach ($ratings as $rating){
+                echo $rating->name . ' : ' . $rating->rating_board->name . "<br>";
+            }
+        }
+    }
+
 }

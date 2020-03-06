@@ -21,7 +21,9 @@ class Game extends Model
     }
 	
 	public function Rating() {
-		return $this->belongsToMany('games\model\rating_board',
-			'game_rating', 'rating_board_id', 'id');
+		return $this->belongsToMany('games\model\game_rating',
+			'game2rating', 'rating_id', 'game_id');
 	}
+
+
 }

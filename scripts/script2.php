@@ -13,4 +13,5 @@ $control = new td2();
 //$control->jeu12342();
 //$control->personnagesJeuMario();
 //$control->jeuCompSony();
-$control->jeuMario3Persos();
+//$control->jeuMario3Persos();
+$control->ratingMario();
