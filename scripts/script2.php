@@ -10,4 +10,5 @@ require '../vendor/autoload.php';
 
 
 $control = new td2();
-$control->jeu12342();
+//$control->jeu12342();
+$control->jeuCompSony();

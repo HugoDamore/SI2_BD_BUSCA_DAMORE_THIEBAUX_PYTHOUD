@@ -14,4 +14,9 @@ class Game extends Model
         return $this->belongsToMany('games\model\Character',
              'game2character', 'character_id', 'game_id');
     }
+
+    public function CompanyDev() {
+        return $this->belongsToMany('games\model\Company',
+            'game_developers', 'comp_id', 'game_id');
+    }
 }

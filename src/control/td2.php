@@ -4,8 +4,8 @@
 namespace games\control;
 
 
+use games\model\Company;
 use games\model\Game;
-use games\model\Game2character;
 
 class td2
 {
@@ -21,4 +21,20 @@ class td2
             echo $perso->name . '<br>';
         }
     }
+
+    public function jeuCompSony() {
+        $companies = Company::where('name', 'like', 'Sony%')->get();
+
+        foreach ($companies as $company){
+            echo $company->name . ' : ' . '<br>';
+            $jeux = $company->JeuxDev()->get();
+
+            foreach ($jeux as $jeu) {
+                echo $jeu->name . ', ';
+            }
+            echo '<br>';
+        }
+    }
+
+    
 }
