@@ -13,4 +13,8 @@ class game_rating extends Model
     protected $primaryKey = "id";
     public $timestamps = false;
 
+    public function RatingBoard() {
+    	return $this->belongsTo('games\model\rating_board', 'rating_board_id');
+    }
+
 }
