@@ -72,21 +72,11 @@ class td1
         $nb = Game::count();
         echo 'il y a : ' . $nb;
 
-        $games = Game::all();
-
-        /**
-        foreach ($games as $game){
-            echo $game->id . ' : ' . $game->name . ' : ' . $game->alias . "\n" . $game->description . "\n\n";
-        }*/
-
-        $n = 0;
-
-        while ($n<=$nb){
-            $games = Game::skip()->take(500)->get();
+        $games = Game::skip(0)->take(500)->get();
             foreach ($games as $game) {
-                echo $game->id . ' : ' . $game->name . ' : ' . $game->alias . "\n";
+                echo $game->id . ' : ' . $game->name . ' : ' . "\n";
             }
-            $n+=500;
-        }
+
+
     }
 }
