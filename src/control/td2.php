@@ -89,6 +89,7 @@ class td2
             $ratings = $jeu->Rating()->get();
             foreach ($ratings as $rating){
                 echo $rating->name . ' : '  . "<br>";
+                //. $rating->rating_board->name
             }
         }
     }
