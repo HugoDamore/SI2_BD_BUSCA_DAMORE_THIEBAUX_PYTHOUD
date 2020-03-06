@@ -10,10 +10,11 @@ require '../vendor/autoload.php';
 
 
 $control = new td1();
-$control->jeuxMario();
+//$control->jeuxMario();
 //$control->companyJapon();
 //$control->platformBase();
 //$control->game442();
+$control->jeuxPagination();
 
 
 

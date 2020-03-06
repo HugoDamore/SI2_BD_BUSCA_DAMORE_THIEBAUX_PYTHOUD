@@ -82,7 +82,7 @@ class td1
         $n = 0;
 
         while ($n<=$nb){
-            $games = Game::take(500)->skip($n)->get();
+            $games = Game::skip()->take(500)->get();
             foreach ($games as $game) {
                 echo $game->id . ' : ' . $game->name . ' : ' . $game->alias . "\n";
             }
