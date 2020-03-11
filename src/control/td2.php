@@ -94,4 +94,39 @@ class td2
         }
     }
 
+    /**
+     * les jeux dont le nom débute par Mario et dont le rating initial contient "3+"
+     */
+    public function rating3plus() {
+        $jeux = Game::where('name', 'like', 'Mario%')->get();
+
+        foreach ($jeux as $jeu) {
+            echo $jeu->name . ' : ' . '<br>';
+            $ratings = $jeu->Rating()->get();
+
+            foreach ($ratings as $rating){
+
+                echo $rating->id  . "<br>";
+
+            }
+        }
+    }
+
+    /**
+     * les jeux dont le nom débute par Mario, publiés par une compagnie dont le nom contient
+     * "Inc." et dont le rating initial contient "3+"
+     */
+    public function rating3plusMarioInc(){
+
+    }
+
+    /**
+     * les jeux dont le nom débute Mario, publiés par une compagnie dont le nom contient "Inc",
+     * dont le rating initial contient "3+" et ayant reçu un avis de la part du rating board nommé
+     * "CERO"
+     */
+    public function cero(){
+
+    }
+
 }
