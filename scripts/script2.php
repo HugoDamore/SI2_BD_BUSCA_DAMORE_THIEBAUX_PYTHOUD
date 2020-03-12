@@ -10,9 +10,11 @@ require '../vendor/autoload.php';
 
 
 $control = new td2();
-$control->jeu12342();
+//$control->jeu12342();
 //$control->personnagesJeuMario();
 //$control->jeuCompSony();
 //$control->jeuMario3Persos();
 //$control->ratingMario();
 //$control->rating3plus();
+$control->rating3plusMarioInc();
+

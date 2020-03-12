@@ -12,6 +12,7 @@ class td2
 
     public function __construct() {}
 
+
     public function jeu12342(){
         $jeu = Game::where('id', '=', '12342')->first();
         $persos = $jeu->Personnages()->get();
@@ -51,7 +52,10 @@ class td2
             echo '<br>';
         }
     }
-	
+
+    /*
+     * question 4
+     */
 	public function ratingInit() {
 		$games = Game::where('name', 'like', '%mario%')->get();
 		foreach($games as $game){
@@ -64,7 +68,7 @@ class td2
 	}
 
     /*
-     * les jeux dont le nom débute par Mario et ayant plus de 3 personnages
+     * 5 les jeux dont le nom débute par Mario et ayant plus de 3 personnages
      */
     public function jeuMario3Persos() {
         $jeux = Game::where('name', 'like', 'Mario%')->get();
@@ -79,7 +83,7 @@ class td2
     }
 
     /**
-     * le rating initial (indiquer le rating board) des jeux dont le nom contient Mario
+     * 4 le rating initial (indiquer le rating board) des jeux dont le nom contient Mario
      */
     public function ratingMario() {
         $jeux = Game::where('name', 'like', '%Mario%')->get();
@@ -88,26 +92,24 @@ class td2
             echo $jeu->name . ' : ';
             $ratings = $jeu->Rating()->get();
             foreach ($ratings as $rating){
-                echo $rating->RatingBoard->name . ' ';
+                echo '(' . $rating->RatingBoard->name . ' ';
             }
             echo '<br><br>';
         }
     }
 
     /**
-     * les jeux dont le nom débute par Mario et dont le rating initial contient "3+"
+     * 6 les jeux dont le nom débute par Mario et dont le rating initial contient "3+"
      */
     public function rating3plus() {
         $jeux = Game::where('name', 'like', 'Mario%')->get();
 
         foreach ($jeux as $jeu) {
-            echo $jeu->name . ' : ' . '<br>';
             $ratings = $jeu->Rating()->get();
 
             foreach ($ratings as $rating){
-
-                echo $rating->id  . "<br>";
-
+                if (strpbrk($rating->name,'%3') !== FALSE)
+                    echo $jeu->name . ' : ' . $rating->name . '<br>';
             }
         }
     }
@@ -117,7 +119,21 @@ class td2
      * "Inc." et dont le rating initial contient "3+"
      */
     public function rating3plusMarioInc(){
+        $jeux = Game::where('name', 'like', 'Mario%')->get();
 
+        foreach ($jeux as $jeu) {
+            $companies = $jeu->CompanyPublishers()->get();
+            $ratings = $jeu->Rating()->get();
+
+            foreach ($companies as $company) {
+                if (strpbrk($company->name, "Inc") !== FALSE) {
+                    foreach ($ratings as $rating) {
+                        if (strpbrk($rating->name, '3') !== FALSE)
+                            echo $jeu->name . ' : ' . $rating->name . ', ' . $company->name . '<br>';
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -128,5 +144,6 @@ class td2
     public function cero(){
 
     }
+
 
 }
