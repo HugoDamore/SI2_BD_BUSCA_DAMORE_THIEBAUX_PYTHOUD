@@ -27,7 +27,7 @@ class Game extends Model
 
 	public function CompanyPublishers() {
         return $this->belongsToMany('games\model\Company',
-            'game_publishers', 'comp_id', 'game_id');
+            'game_publishers', 'game_id', 'comp_id');
     }
 
 }

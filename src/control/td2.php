@@ -122,16 +122,14 @@ class td2
         $jeux = Game::where('name', 'like', 'Mario%')->get();
 
         foreach ($jeux as $jeu) {
-            $companies = $jeu->CompanyPublishers()->get();
+            $companies = $jeu->CompanyPublishers()->where('name','like','%Inc.%')->get();
             $ratings = $jeu->Rating()->get();
 
             foreach ($companies as $company) {
-                if (strpbrk($company->name, "Inc") !== FALSE) {
                     foreach ($ratings as $rating) {
                         if (strpbrk($rating->name, '3') !== FALSE)
                             echo $jeu->name . ' : ' . $rating->name . ', ' . $company->name . '<br>';
                     }
-                }
             }
         }
     }
@@ -142,7 +140,19 @@ class td2
      * "CERO"
      */
     public function cero(){
+		$jeux = Game::where('name', 'like', 'Mario%')->get();
 
+        foreach ($jeux as $jeu) {
+            $companies = $jeu->CompanyPublishers()->where('name','like','%Inc%')->get();
+            $ratings = $jeu->Rating()->where('name','like','CERO')->get();
+
+            foreach ($companies as $company) {
+                    foreach ($ratings as $rating) {
+                        if (strpbrk($rating->name, '3') !== FALSE)
+                            echo $jeu->name . ' : ' . $rating->name . ', ' . $company->name . '<br>';
+                    }
+            }
+        }
     }
 
 

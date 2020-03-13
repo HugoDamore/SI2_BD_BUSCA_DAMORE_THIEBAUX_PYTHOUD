@@ -16,5 +16,6 @@ $control = new td2();
 //$control->jeuMario3Persos();
 //$control->ratingMario();
 //$control->rating3plus();
-$control->rating3plusMarioInc();
+//$control->rating3plusMarioInc();
+$control->cero();
 
