@@ -5,12 +5,15 @@ namespace games\control;
 
 
 use games\model\Game;
+use games\model\Company;
+use Illuminate\Database\Capsule\Manager as DB;
 
 class td3
 {
 
     public function __construct()
     {
+		DB::connection()->enableQueryLog();
     }
 
     public function q1(){
@@ -114,6 +117,74 @@ class td3
      *
      * On constate que les requêtes sont beaucoup plus rapides avec un index.
      */
+	public function affichelog(){
+		$querys = DB::getQueryLog();
+		$i = 0;
+		echo("------------------------------------------".'<br>');
+		foreach($querys as $query){
+			echo("Requete : " . $query["query"] . '<br>');
+			var_dump($query['bindings']);
+			echo("Binding : " . $query["bindings"][0] . '<br>');
+			echo("Temps : " . $query["time"] . '<br>'. '<br>');
+			$i++;
+		}
+		echo "Il y a eu " . $i . " requète execute";
+		
+	}
+	
+	public function jeuxMario() {
+        $liste = Game::where('name', 'like', '%mario%')->get();
 
+        foreach ($liste as $game) {
+            echo $game->name . ' : ' . $game->alias . "\n";
+        }
+
+        echo "Jeux dont le titre contient Mario : " . count($liste) . "<br>";
+		$this->affichelog();
+
+    }
+	
+	public function jeu12342(){
+        $jeu = Game::where('id', '=', '12342')->first();
+        $persos = $jeu->Personnages()->get();
+
+        echo $jeu->name . ' : ' . $jeu->deck;
+        foreach ($persos as $perso) {
+            echo $perso->name . '<br>';
+        }
+		$this->affichelog();
+    }
+	
+	public function personnagesJeuMario() {
+        $jeux = Game::where('name', 'like', '%Mario%')->get();
+
+        foreach ($jeux as $jeu) {
+            echo $jeu->name . " : "."<br>";
+
+            $persos = $jeu->Personnages()->get();
+
+            foreach ($persos as $perso) {
+                echo $perso->name . ', ';
+            }
+            echo "<br>";
+            echo "<br>";
+        }
+		$this->affichelog();
+    }
+	
+	public function jeuCompSony() {
+        $companies = Company::where('name', 'like', 'Sony%')->get();
+
+        foreach ($companies as $company){
+            echo $company->name . ' : ' . '<br>';
+            $jeux = $company->JeuxDev()->get();
+
+            foreach ($jeux as $jeu) {
+                echo $jeu->name . ', ';
+            }
+            echo '<br>';
+        }
+		$this->affichelog();
+    }
 
 }
