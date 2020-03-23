@@ -11,3 +11,4 @@ use Illuminate\Database\Capsule\Manager as DB;
 $control = new \games\control\td4();
 
 $control->creationUtilisateurs();
+$control->creationCommentaires();
