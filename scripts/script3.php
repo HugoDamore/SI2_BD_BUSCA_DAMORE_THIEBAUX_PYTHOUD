@@ -10,7 +10,7 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 $control = new \games\control\td3();
 
-/*echo "<h2>Mesures des temps d'execution</h2>";
+echo "<h2>Mesures des temps d'execution</h2>";
 
 $control->q1();
 $control->q2();
@@ -21,14 +21,14 @@ echo "<h2>Questions sur les index</h2>";
 $control->q5_1();
 $control->q5_2();
 $control->q5_3();
-*/
 
+
+//echo "<h2>Partie</h2>";
 
 //$control->jeuxMario();
 //$control->jeu12342();
-$control->premiereAppMario();
+//$control->premiereAppMario();
 //$control->personnagesJeuMario();
 //$control->jeuCompSony();
 
-//Question 3 a finir
 
