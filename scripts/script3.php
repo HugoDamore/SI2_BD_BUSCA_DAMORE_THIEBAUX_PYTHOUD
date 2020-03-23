@@ -26,8 +26,9 @@ $control->q5_3();
 
 //$control->jeuxMario();
 //$control->jeu12342();
+$control->premiereAppMario();
 //$control->personnagesJeuMario();
-$control->jeuCompSony();
+//$control->jeuCompSony();
 
 //Question 3 a finir
 

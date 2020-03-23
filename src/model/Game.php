@@ -30,4 +30,9 @@ class Game extends Model
             'game_publishers', 'game_id', 'comp_id');
     }
 
+    public function PremiersPersonnages(){
+        return $this->hasMany('games\model\Character',
+            'first_appeared_in_game_id');
+    }
+
 }

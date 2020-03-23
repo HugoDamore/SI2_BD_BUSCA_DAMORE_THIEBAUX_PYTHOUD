@@ -13,5 +13,7 @@ class Character extends Model
     protected $primaryKey = "id";
     public $timestamps = false;
 
-
+    public function PremiereApparition() {
+        return $this->belongsTo('games\model\Game','first_appeared_in_game_id');
+    }
 }
