@@ -17,4 +17,8 @@ class Commentaire extends Model
         return $this->belongsTo('games\model\Utilisateur', 'email');
     }
 
+    public function game() {
+        return $this->belongsTo('games\model\Game', 'game_id');
+    }
+
 }

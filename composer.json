@@ -3,6 +3,7 @@
     "illuminate/database": "5.5.*",
     "slim/slim": "2.*",
     "php" : ">7.0.0",
+
     "fzaninotto/faker": "^1.9",
     "symfony/var-dumper": "^5.0"
   },
