@@ -117,6 +117,15 @@ class td3
      *
      * On constate que les requêtes sont beaucoup plus rapides avec un index.
      */
+
+
+    /**
+     * Partie 2
+     */
+
+    /**
+     * fonction d'affichage des log
+     */
 	public function affichelog(){
 		$querys = DB::getQueryLog();
 		$i = 0;
@@ -131,7 +140,10 @@ class td3
 		echo "Il y a eu " . $i . " requète execute";
 		
 	}
-	
+
+    /**
+     * question 1
+     */
 	public function jeuxMario() {
         $liste = Game::where('name', 'like', '%mario%')->get();
 
@@ -143,7 +155,10 @@ class td3
 		$this->affichelog();
 
     }
-	
+
+    /**
+     * question 2
+     */
 	public function jeu12342(){
         $jeu = Game::where('id', '=', '12342')->first();
         $persos = $jeu->Personnages()->get();
@@ -154,7 +169,27 @@ class td3
         }
 		$this->affichelog();
     }
-	
+
+    /**
+     * question 3
+     */
+    public function premiereAppMario() {
+        $games = Game::where('name', 'like', '%Mario%')->get();
+
+        foreach ($games as $game) {
+            echo $game->name . "<br>";
+
+            $persos = $game->PremiersPersonnages()->get();
+            foreach ($persos as $perso){
+                echo $perso->name . '<br>';
+            }
+            $this->affichelog();
+        }
+    }
+
+    /**
+     * question 4
+     */
 	public function personnagesJeuMario() {
         $jeux = Game::where('name', 'like', '%Mario%')->get();
 
@@ -171,7 +206,10 @@ class td3
         }
 		$this->affichelog();
     }
-	
+
+    /**
+     * question 5
+     */
 	public function jeuCompSony() {
         $companies = Company::where('name', 'like', 'Sony%')->get();
 
