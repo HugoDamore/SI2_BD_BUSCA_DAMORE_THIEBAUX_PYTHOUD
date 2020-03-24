@@ -10,11 +10,11 @@ class Utilisateur extends Model
 {
 
     protected $table = "utilisateur";
-    protected $primaryKey = "email";
+    protected $primaryKey = "id";
     public $timestamps = false;
 
-    public function commentaires() {
-        return $this->hasMany('games\model\Commentaires', 'email');
+    public function Commentaires() {
+        return $this->hasMany('games\model\Commentaire', 'user_id');
     }
 
 }

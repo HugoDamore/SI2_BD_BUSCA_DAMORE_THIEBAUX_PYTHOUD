@@ -4,11 +4,8 @@
 namespace games\control;
 
 
-use games\model\Game;
-use games\model\Company;
 use games\model\Utilisateur;
 use games\model\Commentaire;
-use Illuminate\Database\Capsule\Manager as DB;
 use Faker;
 
 class td4 {
@@ -47,5 +44,26 @@ class td4 {
         }
 
     }
+
+    public function q1() {
+        $user = Utilisateur::where('id', '=', '2')->get();
+        $commentaires = $user->Commentaires()->get();
+
+        foreach ($commentaires as $comm) {
+            echo $comm->created_at .' ' . $comm->titre . '<br>';
+        }
+    }
+
+
+    public function q2() {
+        $users = Utilisateur::all();
+
+        foreach ($users as $user) {
+            if (count($user->Commentaires()) > 5 ) {
+                echo $user->email . '<br>';
+            }
+        }
+    }
+
 
 }

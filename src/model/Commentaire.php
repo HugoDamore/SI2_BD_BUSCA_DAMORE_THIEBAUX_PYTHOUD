@@ -14,7 +14,7 @@ class Commentaire extends Model
     public $timestamps = true;
 
     public function utilisateur() {
-        return $this->belongsTo('games\model\Utilisateur', 'email');
+        return $this->belongsTo('games\model\Utilisateur', 'user_id');
     }
 
     public function game() {
