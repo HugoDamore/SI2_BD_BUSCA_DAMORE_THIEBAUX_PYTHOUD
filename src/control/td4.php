@@ -59,7 +59,7 @@ class td4 {
         $users = Utilisateur::all();
 
         foreach ($users as $user) {
-            if (count($user->Commentaires()) > 5 ) {
+            if (($user->Commentaires())->count() > 5 ) {
                 echo $user->email . '<br>';
             }
         }
