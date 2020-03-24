@@ -45,6 +45,10 @@ class td4 {
 
     }
 
+    /**
+     * lister les commentaires d'un utilisateur donné, afficher la date du commentaire de façon
+     * lisible, ordonnés par date décroissante,
+     */
     public function q1() {
         $user = Utilisateur::where('id', '=', '28')->first();
         $commentaires = $user->Commentaires()->get();
@@ -54,7 +58,9 @@ class td4 {
         }
     }
 
-
+    /**
+     * lister les utilisateurs ayant posté plus de 5 commentaires.
+     */
     public function q2() {
         $users = Utilisateur::all();
 
@@ -63,6 +69,14 @@ class td4 {
                 echo $user->email . '<br>';
             }
         }
+    }
+
+    /**
+     * Programmer un script php qui crée 2 utilisateurs, 3 commentaires par utilisateurs, tous concernant le
+     * jeu 12342.
+     */
+    public function q3() {
+        
     }
 
 
