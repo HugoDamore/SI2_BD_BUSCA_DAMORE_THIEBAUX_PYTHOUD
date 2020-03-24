@@ -15,7 +15,7 @@ class td4 {
 
     	$faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 0; $i < 25000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $user = new Utilisateur();
             $user->nom = $faker->lastName;
             $user->prenom = $faker->firstName;
@@ -32,13 +32,13 @@ class td4 {
 
 		$faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 0; $i < 250000; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
         	$post = new Commentaire();
         	$post->titre = $faker->realText(rand(10,30));
         	$post->contenu = $faker->realText(rand(50,150));
-        	$post->created_at = $faker->dateTimeThisDecade->format('Y-m-d');
-        	$post->updated_at = $faker->dateTimeBetween($startDate = $post->created_at, $endDate = 'now')->format('Y-m-d');
-        	$post->user_id = $faker->numberBetween($min = 1, $max = 25000);
+        	$post->created_at = $faker->dateTimeThisDecade;
+        	$post->updated_at = $faker->dateTimeBetween($startDate = $post->created_at, $endDate = 'now');
+        	$post->user_id = $faker->numberBetween($min = 1, $max = 100);
         	$post->game_id = $faker->numberBetween($min = 1, $max = 47948);
         	$post->save();
         }
@@ -46,7 +46,7 @@ class td4 {
     }
 
     public function q1() {
-        $user = Utilisateur::where('id', '=', '2')->get();
+        $user = Utilisateur::where('id', '=', '28')->first();
         $commentaires = $user->Commentaires()->get();
 
         foreach ($commentaires as $comm) {
