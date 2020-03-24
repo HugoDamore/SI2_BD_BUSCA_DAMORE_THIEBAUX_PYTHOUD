@@ -11,5 +11,6 @@ $control = new \games\control\td4();
 //$control->creationCommentaires();
 
 
-$control->q1();
-$control->q2();
+//$control->q1();
+//$control->q2();
+$control->q3();
