@@ -7,8 +7,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $control = new \games\control\td4();
 
-//$control->creationUtilisateurs();
-//$control->creationCommentaires();
+$control->creationUtilisateurs();
+$control->creationCommentaires();
 
-$control->q1();
+//$control->q1();
 //$control->q2();
