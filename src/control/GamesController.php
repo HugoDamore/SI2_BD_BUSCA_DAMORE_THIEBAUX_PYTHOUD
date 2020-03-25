@@ -78,21 +78,16 @@ class GamesController
 
         $app = Slim::getInstance();
 
-        
+        $commentaires = Commentaire::select('id', 'titre', 'contenu', 'created_at', 'user_id')->where('game_id', '=', $id_game)->get();
 
-        $commentaires = Commentaire::select('id', 'titre', 'contenu', 'created_at')->where('game_id', '=', $id_game)->get();
- 
-        
-		
         $comm_data = [];
-		
 		
 		$type = $app->request->headers->set('Content-type', 'application/json');
         foreach ($commentaires as $comm){
 
             array_push($comm_data, [
                 'commentaire' => $comm,
-                'utilisateur' => $comm->utilisateur()->email
+                'utilisateur' => $comm->utilisateur->email
             ]);
         }
         echo json_encode($comm_data);
