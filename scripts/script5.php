@@ -18,4 +18,8 @@ $app->get('/api/games/:id/comments', function($id){
 	(new \games\control\GamesController())->getComments($id);
 })->name('comments');
 
+$app->get('api/games/platform/:id', function($id){
+	(new \games\control\GamesController())->getPlatform($id);
+})->name('platform');
+
 $app->run();

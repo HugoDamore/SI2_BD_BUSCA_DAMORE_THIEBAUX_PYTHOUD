@@ -31,7 +31,18 @@ class GamesController
             echo json_encode(['error' => 404, 'message' => "game not found"]);
             return;
         }
-
+		
+		$platform_data = [];
+		foreach($g->Platforms as $plat){
+			array_push($platform_data, [
+				'id' => $plat->id,
+				'nom' => $plat->name,
+				'alias' => $plat->alias,
+				'abbreviation' => $plat->abbreviation,
+				'url' => ['href'=> $app->urlFor('platform', ['id' => $plat->id])]
+			]);
+		}
+		
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type', 'application/json');
 
@@ -39,7 +50,8 @@ class GamesController
             'links' => [
                 //{ "href" : "/api/games/35444/comments"}
                 'comments' => ['href'=> $app->urlFor('games').$id.'/comments']
-            ]
+            ],
+			'platform' => $platform_data
         ]);
     }
 
@@ -93,7 +105,7 @@ class GamesController
 
             array_push($comm_data, [
                 'commentaire' => $comm,
-                'utilisateur' => $comm->utilisateur()->first->nom
+                'utilisateur' => $comm->utilisateur->nom
             ]);
         }
         echo json_encode($comm_data);
@@ -105,6 +117,10 @@ class GamesController
 
 
     }
+	
+	public function getPlatform($id){
+		
+	}
 
     public function getCharacters($id_game) {
         $app = Slim::getInstance();

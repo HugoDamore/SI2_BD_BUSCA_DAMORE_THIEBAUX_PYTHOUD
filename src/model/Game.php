@@ -29,6 +29,11 @@ class Game extends Model
         return $this->belongsToMany('games\model\Company',
             'game_publishers', 'game_id', 'comp_id');
     }
+	
+	public function Platforms() {
+        return $this->belongsToMany('games\model\Platform',
+            'game2platform', 'platform_id', 'game_id');
+    }
 
     public function PremiersPersonnages(){
         return $this->hasMany('games\model\Character',
