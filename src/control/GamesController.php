@@ -4,6 +4,7 @@
 namespace games\control;
 
 
+use games\model\Commentaire;
 use games\model\Game;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Slim\Slim;
@@ -66,5 +67,39 @@ class GamesController
 								'last' => ['href'=> $app->urlFor('games').'?page='.$last]
 						 ]
 			]);
+    }
+
+    /*
+     * Pour chaque commentaire retourné dans la collection, la représentation contient l'id, le titre, le texte,
+     * la date de création et le nom de l'utilisateur.
+     */
+    public function getComments($id_game) {
+
+        $app = Slim::getInstance();
+
+        $type = $app->request->headers->get('Content-type');
+
+        $commentaires = Commentaire::select('id', 'titre', 'contenu', 'created_at')->get()
+            ->where('game_id', '=', $id_game);
+
+        foreach ($commentaires as $comm){
+
+            $user = $comm->utilisateur()->nom;
+
+            array_push($comm_data, [
+                'commentaire' => $comm,
+                'utilisateur' => $user
+            ]);
+
+            echo json_encode(['games' => $comm_data]);
+        }
+
+
+
+
+
+
+
+
     }
 }
