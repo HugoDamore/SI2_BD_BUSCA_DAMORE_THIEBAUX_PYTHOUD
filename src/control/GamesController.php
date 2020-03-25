@@ -5,6 +5,7 @@ namespace games\control;
 
 
 use games\model\Commentaire;
+use games\model\Utilisateur;
 use games\model\Game;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Slim\Slim;
@@ -77,24 +78,24 @@ class GamesController
 
         $app = Slim::getInstance();
 
-        $type = $app->request->headers->get('Content-type');
-
-        $commentaires = Commentaire::select('id', 'titre', 'contenu', 'created_at')->get()
-            ->where('game_id', '=', $id_game);
         
+
+        $commentaires = Commentaire::select('id', 'titre', 'contenu', 'created_at')->where('game_id', '=', $id_game)->get();
+ 
+        
+		
         $comm_data = [];
-
+		
+		
+		$type = $app->request->headers->set('Content-type', 'application/json');
         foreach ($commentaires as $comm){
-
-            $user = $comm->utilisateur()->nom;
 
             array_push($comm_data, [
                 'commentaire' => $comm,
-                'utilisateur' => $user
+                'utilisateur' => $comm->utilisateur()->email
             ]);
         }
         echo json_encode($comm_data);
-
 
 
 
