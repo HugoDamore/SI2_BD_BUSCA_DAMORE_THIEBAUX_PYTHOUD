@@ -93,7 +93,7 @@ class GamesController
 
             array_push($comm_data, [
                 'commentaire' => $comm,
-                'utilisateur' => $comm->utilisateur->email
+                'utilisateur' => $comm->utilisateur()->first->nom
             ]);
         }
         echo json_encode($comm_data);
