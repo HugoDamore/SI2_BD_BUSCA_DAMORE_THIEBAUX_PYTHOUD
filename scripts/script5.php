@@ -14,7 +14,7 @@ $app->get('/api/games/', function(){
 	(new \games\control\GamesController())->getGames();
 })->name('games');
 
-$app->get('/api/games/:id/comments', function(){
+$app->get('/api/games/:id/comments', function($id){
 	(new \games\control\GamesController())->getComments($id);
 })->name('comments');
 

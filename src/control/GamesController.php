@@ -81,6 +81,8 @@ class GamesController
 
         $commentaires = Commentaire::select('id', 'titre', 'contenu', 'created_at')->get()
             ->where('game_id', '=', $id_game);
+        
+        $comm_data = [];
 
         foreach ($commentaires as $comm){
 
@@ -90,9 +92,8 @@ class GamesController
                 'commentaire' => $comm,
                 'utilisateur' => $user
             ]);
-
-            echo json_encode(['games' => $comm_data]);
         }
+        echo json_encode($comm_data);
 
 
 
