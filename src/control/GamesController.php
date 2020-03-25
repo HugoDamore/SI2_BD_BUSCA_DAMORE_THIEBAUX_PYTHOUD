@@ -18,9 +18,9 @@ class GamesController
 
         try {
 
-            $g = Game::select('id', 'name', 'alias', 'deck', 'description', 'original-release_date')
+            $g = Game::select('id', 'name', 'alias', 'deck', 'description', 'original_release_date')
                 ->where("id", "=", $id)
-                ->firstOfFail();
+                ->firstOrFail();
 
         } catch (ModelNotFoundException $e) {
             $app->response->setStatus(404);
@@ -58,5 +58,13 @@ class GamesController
                 'links' => ['self' => ['href' => $app->urlFor('game', ['id' => $game->id])]]
             ]);
         }
+		echo json_encode(['games' => $games_data,
+						  'links' => [
+								'first' => ['href'=> $app->urlFor('games').'?page=1'],
+								'prev' => ['href'=> $app->urlFor('games').'?page='.$prev],
+								'next' => ['href'=> $app->urlFor('games').'?page='.$next],
+								'last' => ['href'=> $app->urlFor('games').'?page='.$last]
+						 ]
+			]);
     }
 }
