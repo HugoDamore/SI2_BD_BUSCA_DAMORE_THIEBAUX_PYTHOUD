@@ -32,6 +32,7 @@ class GamesController
             return;
         }
 		
+		$game = $g->toArray();
 		$platform_data = [];
 		foreach($g->Platforms as $plat){
 			array_push($platform_data, [
@@ -46,7 +47,7 @@ class GamesController
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type', 'application/json');
 
-        echo json_encode(['game' => $g->toArray(),
+        echo json_encode(['game' => $game,
             'links' => [
                 //{ "href" : "/api/games/35444/comments"}
                 'comments' => ['href'=> $app->urlFor('games').$id.'/comments']
