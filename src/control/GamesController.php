@@ -4,6 +4,7 @@
 namespace games\control;
 
 
+use games\model\Character;
 use games\model\Commentaire;
 use games\model\Utilisateur;
 use games\model\Game;
@@ -33,8 +34,13 @@ class GamesController
 
         $app->response->setStatus(200);
         $app->response->headers->set('Content-Type', 'application/json');
-        echo json_encode($g->toArray());
 
+        echo json_encode(['game' => $g->toArray(),
+            'links' => [
+                //{ "href" : "/api/games/35444/comments"}
+                'comments' => ['href'=> $app->urlFor('games').$id.'/comments']
+            ]
+        ]);
     }
 
     public function getGames()
@@ -87,7 +93,7 @@ class GamesController
 
             array_push($comm_data, [
                 'commentaire' => $comm,
-                'utilisateur' => $comm->utilisateur->email
+                'utilisateur' => $comm->utilisateur()->first->nom
             ]);
         }
         echo json_encode($comm_data);
@@ -98,5 +104,23 @@ class GamesController
 
 
 
+    }
+
+    public function getCharacters($id_game) {
+        $app = Slim::getInstance();
+
+        $personnages = Character::select('id', 'name', 'description', 'created_at')->where('game_id', '=', $id_game)->get();
+
+        $comm_data = [];
+
+        $type = $app->request->headers->set('Content-type', 'application/json');
+        foreach ($commentaires as $comm){
+
+            array_push($comm_data, [
+                'commentaire' => $comm,
+                'utilisateur' => $comm->utilisateur->email
+            ]);
+        }
+        echo json_encode($comm_data);
     }
 }
