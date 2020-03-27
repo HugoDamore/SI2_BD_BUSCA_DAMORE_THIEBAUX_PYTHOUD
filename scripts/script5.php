@@ -18,8 +18,12 @@ $app->get('/api/games/:id/comments', function($id){
 	(new \games\control\GamesController())->getComments($id);
 })->name('comments');
 
-$app->get('api/games/platform/:id', function($id){
+$app->get('/api/games/platform/:id', function($id){
 	(new \games\control\GamesController())->getPlatform($id);
 })->name('platform');
+
+$app->get('/api/games/:id/characters', function($id) {
+    (new \games\control\GamesController())->getCharacters($id);
+})->name('characters');
 
 $app->run();

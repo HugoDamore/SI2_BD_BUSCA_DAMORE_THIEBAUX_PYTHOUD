@@ -6,6 +6,7 @@ namespace games\control;
 
 use games\model\Character;
 use games\model\Commentaire;
+use games\model\Platform;
 use games\model\Utilisateur;
 use games\model\Game;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -49,8 +50,8 @@ class GamesController
 
         echo json_encode(['game' => $game,
             'links' => [
-                //{ "href" : "/api/games/35444/comments"}
-                'comments' => ['href'=> $app->urlFor('games').$id.'/comments']
+                'comments' => ['href'=> $app->urlFor('games').$id.'/comments'],
+                'characters' => ['href'=> $app->urlFor('games').$id.'/characters']
             ],
 			'platform' => $platform_data
         ]);
@@ -111,33 +112,54 @@ class GamesController
         }
         echo json_encode($comm_data);
 
-
-
-
-
-
-
     }
 	
 	public function getPlatform($id){
-		
+        $app = Slim::getInstance();
+
+        try {
+
+            $p = Platform::select('id', 'name', 'alias', 'deck', 'description')
+                ->where("id", "=", $id)
+                ->firstOrFail();
+
+        } catch (ModelNotFoundException $e) {
+            $app->response->setStatus(404);
+            $app->response->headers->set('Content-Type', 'application/json');
+            echo json_encode(['error' => 404, 'message' => "platform not found"]);
+            return;
+        }
+
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
+
+
+
+
+        echo json_encode(['platform détaillée' => $p->toArray()]);
+
 	}
 
     public function getCharacters($id_game) {
         $app = Slim::getInstance();
 
-        $personnages = Character::select('id', 'name', 'description', 'created_at')->where('game_id', '=', $id_game)->get();
+        $personnages = Character::select('id', 'name', 'created_at')
+            ::whereHas('Games', function ($q) use ($id_game) {
+                $q->where('game_id', '=', $id_game);
+            })->get();
 
-        $comm_data = [];
+
+        $perso_data = [];
 
         $type = $app->request->headers->set('Content-type', 'application/json');
-        foreach ($commentaires as $comm){
+        foreach ($personnages as $perso){
 
-            array_push($comm_data, [
-                'commentaire' => $comm,
-                'utilisateur' => $comm->utilisateur->email
+            array_push($perso_data, [
+                'character' => $perso,
+                'links' => ['self' => ['href' => $app->urlFor('games', ['id' => $id_game])]]
             ]);
         }
-        echo json_encode($comm_data);
+        echo json_encode(['characters' => $perso_data]);
+
     }
 }
