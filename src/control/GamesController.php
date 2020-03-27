@@ -143,23 +143,44 @@ class GamesController
     public function getCharacters($id_game) {
         $app = Slim::getInstance();
 
-        $personnages = Character::select('id', 'name', 'created_at')
-            ::whereHas('Games', function ($q) use ($id_game) {
+        $personnages = Character::whereHas('Games', function ($q) use ($id_game) {
                 $q->where('game_id', '=', $id_game);
-            })->get();
+            })->addSelect('id', 'name', 'alias')->get();
+
 
 
         $perso_data = [];
 
-        $type = $app->request->headers->set('Content-type', 'application/json');
+
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
         foreach ($personnages as $perso){
 
             array_push($perso_data, [
                 'character' => $perso,
-                'links' => ['self' => ['href' => $app->urlFor('games', ['id' => $id_game])]]
+                'links' => ['self' => ['href' => $app->urlFor('character', ['id' => $perso->id])]]
             ]);
         }
         echo json_encode(['characters' => $perso_data]);
 
+    }
+
+    public function getCharacter($id_char){
+        $app = Slim::getInstance();
+
+        try {
+            $c = Character::select('id', 'name', 'alias', 'description')
+                ->where("id", "=", $id_char)
+                ->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            $app->response->setStatus(404);
+            $app->response->headers->set('Content-type', 'application/json');
+            echo json_encode(['error'=>404, 'message'=>'character not found']);
+            return ;
+        }
+
+        $app->response->setStatus(200);
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo json_encode($c->toArray());
     }
 }
