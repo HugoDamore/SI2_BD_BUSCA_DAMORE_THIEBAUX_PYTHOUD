@@ -30,4 +30,17 @@ $app->get('/api/characters/:id', function($id) {
     (new \games\control\GamesController())->getCharacter($id);
 })->name('character');
 
+$app->post('/api/games/:id/comments', function($id) {
+	$data =  array(
+	"email" => 'xcosta@masson.net',
+	"titre" => 'New comments',
+	"contenu" => 'New comments'
+	);
+    (new \games\control\GamesController())->addComments($id,json_encode($data));
+})->name('addComments');
+
+$app->get('/api/comments/:id', function($id) {
+	(new \games\control\GamesController())->comments($id);
+})->name('commentsOnly');
+
 $app->run();

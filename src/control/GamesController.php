@@ -102,7 +102,8 @@ class GamesController
 
         $comm_data = [];
 		
-		$type = $app->request->headers->set('Content-type', 'application/json');
+		$app->response->setStatus(200);
+		$app->response->headers->set('Content-type', 'application/json');
         foreach ($commentaires as $comm){
 
             array_push($comm_data, [
@@ -183,4 +184,38 @@ class GamesController
         $app->response->headers->set('Content-Type', 'application/json');
         echo json_encode($c->toArray());
     }
+	
+	public function addComments($id,$JSON){
+		$app = Slim::getInstance();
+		
+		$data = json_decode($JSON);
+        $c = new Commentaire();
+        $c->game_id = $id;
+        $c->titre = $data->titre;
+        $c->contenu = $data->contenu;
+		$u = Utilisateur::where('email','like',$data->email)->first();
+        $c->user_id = $u->id;
+        $c->save();
+        $app->response->redirect($app->urlFor('commentsOnly', ['id'=> $c->id]));
+		
+		
+	}
+	
+	public function comments($id){
+		$app = Slim::getInstance();
+
+        try {
+            $c = Commentaire::select('id', 'titre', 'contenu', 'created_at', 'game_id')
+				->where('id','=',$id)
+                ->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            $app->response->setStatus(404);
+            $app->response->headers->set('Content-type', 'application/json');
+            echo json_encode(['error'=>404, 'message'=>'character not found']);
+            return ;
+        }
+		$app->response->setStatus(201);
+		$app->response->headers->set('Content-Type', 'application/json');
+        echo json_encode($c->toArray());
+	}
 }
