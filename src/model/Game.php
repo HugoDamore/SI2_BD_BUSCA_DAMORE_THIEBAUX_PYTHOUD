@@ -29,5 +29,11 @@ class Game extends Model
         return $this->belongsToMany('games\model\Company',
             'game_publishers', 'game_id', 'comp_id');
     }
+	
+	public function Genre() {
+		return $this->belongsToMany('games\model\Genre',
+			'game2genre', 'game_id', 'genre_id');
+		
+	}
 
 }

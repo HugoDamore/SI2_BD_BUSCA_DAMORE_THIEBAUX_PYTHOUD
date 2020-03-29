@@ -17,5 +17,6 @@ $control = new td2();
 //$control->ratingMario();
 //$control->rating3plus();
 //$control->rating3plusMarioInc();
-$control->cero();
+//$control->cero();
+$control->newGenre();
 

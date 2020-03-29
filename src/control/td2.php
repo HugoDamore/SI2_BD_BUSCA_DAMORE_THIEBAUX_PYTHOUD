@@ -6,6 +6,7 @@ namespace games\control;
 
 use games\model\Company;
 use games\model\Game;
+use games\model\Genre;
 
 class td2
 {
@@ -154,6 +155,17 @@ class td2
             }
         }
     }
+	
+	public function newGenre(){
+		$genre = new Genre();
+		$genre->name = "New Genre";
+		$genre->deck = "New Genre";
+		$genre->description = "New Genre";
+		$genre->save();
+		
+		$genre->game()->attach([12,56,12,345]);
+		
+	}
 
 
 }
